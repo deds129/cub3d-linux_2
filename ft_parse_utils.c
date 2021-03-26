@@ -21,9 +21,7 @@ void ft_print_params(t_info *info)
 //	i = -1;
 //	while(info->map[++i])
 //		printf("%s\n",info->map[i]);
-
 }
-
 
 int ft_valid_str(char *data)
 {
@@ -34,45 +32,65 @@ int ft_valid_str(char *data)
 		return (1);
 	return (0);
 }
-
-int ft_count_lines(char **temp)
+int	ft_num_counter(char *str)
 {
-	int i;
+	int nums;
+	int	i;
+	int len;
 
-	//todo: check null-case
+	nums = 0;
+	len = ft_strlen(str);
 	i = 0;
-	while (temp[i])
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+		{
+			nums++;
+			while (str[i] && ft_isdigit(str[i]))
+				i++;
+		}
+		if (str[i] == 0)
+			break ;
 		i++;
-	return (i);
+	}
+	return (nums);
 }
 
-int ft_check_digit(char *line)
+int ft_valid_res_str(char *line)
 {
 	int i;
 
-	//todo: check null-case
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
 	{
-		if(!(ft_isdigit(line[i])))
+		if (line[i] != ' ' && (!(ft_isdigit(line[i]))))
 			return (0);
+		i++;
 	}
 	return (1);
 }
-//return new string with replaced char to new char
-//malloc problem
-char *ft_chrrep(char *str,char chr, char new_chr)
+
+void			ft_skip_not_num(char **str)
 {
-	int i;
-	i = 0;
-	char *tmp;
-	tmp = ft_strdup(str);
-	while(tmp[i])
-	{
-		if(tmp[i] == chr)
-			tmp[i] = new_chr;
-		i++;
-	}
-	return (tmp);
+	while (!(ft_isdigit(**str)) && **str)
+		*str += 1;
 }
 
+void			ft_skip_num(char **str)
+{
+	while (ft_isdigit(**str))
+		*str += 1;
+}
+
+int				ft_commas_num(char *str)
+{
+	int commas;
+	commas = 0;
+	while (*str)
+	{
+		if (*str == ',')
+			commas++;
+		str++;
+	}
+	return (commas);
+}

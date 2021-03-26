@@ -30,6 +30,8 @@ void ft_error(int err_code)
 		ft_putstr_fd("Error\nMap params are bad. Check colors.\n",2);
 	else if (err_code == ERR_MAP_OPEN)
 		ft_putstr_fd("Error\nMap borders are open.\n",2);
+	else if (err_code == ERR_MAP_D)
+		ft_putstr_fd("Error\nDuplicate map params.\n",2);
 	exit(EXIT_FAILURE);
 }
 

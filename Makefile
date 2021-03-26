@@ -16,7 +16,8 @@ SRCS 	=		main.c \
 				./gnl/get_next_line.c \
 				./gnl/get_next_line_utils.c \
 				ft_errors.c \
-				ft_parse_cub.c \
+				ft_read_cub.c \
+				ft_minilib.c \
 				ft_parse_utils.c
 
 OBJS 	= 	$(SRCS:.c=.o)

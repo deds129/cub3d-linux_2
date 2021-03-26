@@ -35,6 +35,7 @@
 # define ERR_MAP_BAD -116
 # define ERR_MAP_C -117
 # define ERR_MAP_OPEN -118
+# define ERR_MAP_D -119
 
 //LINUX
 # define W 119
@@ -58,8 +59,9 @@ typedef struct	s_info
 {
 	int res_x;
 	int res_y;
-
-	int dup_res;
+	//флаг для повторений
+	int dup_flag;
+	int has_param[9];
 
 	char *no;
 	char *so;
@@ -114,14 +116,23 @@ typedef struct	s_all // структура для всего вместе
 
 /*errors handle*/
 void ft_error(int err_code);
-/*parse cub*/
-void ft_parse(t_info *info);
-void ft_parse_params(t_info *info);
-void ft_set_color(char *str, t_info *info, char flag);
-int ft_valid_str(char *data);
-char *ft_chrrep(char *str,char chr, char new_chr);
-int ft_check_digit(char *line);
-int ft_count_lines(char **temp);
+
+/*read tier*/
+void ft_read_cub(int fd, t_info *info);
+
+/*parse tier*/
+int ft_valid_str(char *str);
+int ft_valid_res_str(char *line);
+int	ft_num_counter(char *str);
+void ft_skip_not_num(char **str);
+void ft_skip_num(char **str);
+int	ft_commas_num(char *str)
+
+
+
+/*mlx tier*/
+void            pixel_put(t_win *wnd, int x, int y, int color);
+
 /*debug*/
 void ft_print_params(t_info *info);
 
