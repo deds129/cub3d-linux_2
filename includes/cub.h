@@ -69,13 +69,9 @@ typedef struct	s_info
 	char *ea;
 	char *s;
 
-	int floor_r;
-	int floor_g;
-	int floor_b;
+	int floor;
 
-	int cell_r;
-	int cell_g;
-	int cell_b;
+	int cell;
 	char **map;
 	char **data;
 	int save;
@@ -126,7 +122,8 @@ int ft_valid_res_str(char *line);
 int	ft_num_counter(char *str);
 void ft_skip_not_num(char **str);
 void ft_skip_num(char **str);
-int	ft_commas_num(char *str)
+int	ft_commas_num(char *str);
+int	ft_spaces_num(char *str);
 
 
 

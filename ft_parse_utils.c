@@ -10,12 +10,10 @@ void ft_print_params(t_info *info)
 	printf("we_texture: %s\n",info->we);
 	printf("ea_texture: %s\n",info->ea);
 	printf("s_texture: %s\n",info->s);
-	printf("floor_color_r: %i\n",info->floor_r);
-	printf("floor_color_g: %i\n",info->floor_g);
-	printf("floor_color_b: %i\n",info->floor_b);
-	printf("celling_color_r: %i\n",info->cell_r);
-	printf("celling_color_g: %i\n",info->cell_g);
-	printf("celling_color_b: %i\n",info->cell_b);
+	printf("floor_color: %i\n",info->floor);
+
+	printf("celling_color: %i\n",info->cell);
+
 	printf("\n===MAP===\n");
 //	int i;
 //	i = -1;
@@ -93,4 +91,18 @@ int				ft_commas_num(char *str)
 		str++;
 	}
 	return (commas);
+}
+
+int				ft_spaces_num(char *str)
+{
+	int sp_len;
+
+	sp_len = 0;
+	while (*str)
+	{
+		if (*str == ' ')
+			sp_len++;
+		str++;
+	}
+	return (sp_len);
 }
