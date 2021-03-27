@@ -1,6 +1,5 @@
 #include "./includes/cub.h"
 
-
 void ft_set_res(char *str, t_info *info)
 {
 
@@ -116,6 +115,39 @@ void	ft_set_colors(char *str, t_info *info)
 		info->floor = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
 	}
 }
+
+void 	ft_valid_path_check(char **path, t_info *info)
+{
+	int fd;
+	int len;
+	char *suffix;
+	char buf;
+
+	fd = open(*path, O_RDONLY);
+	if(read(fd, &buf, 1) < 0 || fd == -1)
+		ft_error(ERR_MAP_C);
+	close(fd);
+	len = ft_strlen(*path);
+	suffix = ft_strdup(*path);
+	if (suffix[len - 3] != 'x' && suffix[len - 2] != 'p' && suffix[len - 1]
+	!= 'm')
+	{
+		free(suffix);
+		ft_error(ERR_MAP_C);
+	}
+	free(suffix);
+}
+
+int	ft_check_space(char *str, t_info *info)
+{
+	if(str[0] != ' ')
+	{
+		ft_error(ERR_MAP_C);
+		return (0);
+	}
+	return (1);
+}
+
 void ft_set_path(char *str, t_info *info, char **path)
 {
 
@@ -123,28 +155,28 @@ void ft_set_path(char *str, t_info *info, char **path)
 	*path = ft_strtrim(str," ");
 	printf("%s\n", *path);
 	//todo: free allocated path dir in struct .. now in main
+	ft_valid_path_check(path,info);
 
 }
 void ft_get_path(char *str, t_info *info)
 {
-	if(str[0] == 'N' && str[1] == 'O')
+	if(str[0] == 'N' && str[1] == 'O' && ft_check_space((str + 2),info))
 	{
-
 		ft_set_path((str + 2),info, &info->no);
 	}
-	else if(str[0] == 'W' && str[1] == 'E')
+	else if(str[0] == 'W' && str[1] == 'E' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->we);
 	}
-	else if(str[0] == 'E' && str[1] == 'A')
+	else if(str[0] == 'E' && str[1] == 'A' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->ea);
 	}
-	else if(str[0] == 'S' && str[1] == 'O')
+	else if(str[0] == 'S' && str[1] == 'O' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->so);
 	}
-	else if(str[0] == 'S')
+	else if(str[0] == 'S' && ft_check_space((str + 1),info))
 	{
 		ft_set_path((str + 1),info, &info->s);
 	}
@@ -155,8 +187,6 @@ void ft_set_textures(char *str, t_info *info)
 {
 	//get_path_from_file
 	ft_get_path(str, info);
-	//get_correct_path
-	//printf("%s\n",str);
 }
 
 void ft_parse_params(char *str, t_info *info)
@@ -186,6 +216,7 @@ void ft_read_cub(int fd, t_info *info)
 		if (info->dup_flag == 1)
 			ft_error(ERR_MAP_D);
 		/*set params*/
+		//todo: hasparams+ to check + muliply check
 		if (ft_valid_str(line))
 			ft_parse_params(line, info);
 		else
