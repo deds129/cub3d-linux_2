@@ -61,7 +61,7 @@ typedef struct	s_info
 	int res_y;
 	//флаг для повторений
 	int dup_flag;
-	int has_param[9];
+	int has_param[8];
 
 	char *no;
 	char *so;
@@ -124,6 +124,8 @@ void ft_skip_not_num(char **str);
 void ft_skip_num(char **str);
 int	ft_commas_num(char *str);
 int	ft_spaces_num(char *str);
+unsigned long	ft_color_to_hex(int red, int green, int blue);
+void			ft_skip_spaces(char **str);
 
 
 

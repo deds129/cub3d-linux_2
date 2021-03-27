@@ -60,7 +60,13 @@ int main (int argc, char *argv[])
 	else
 		ft_error(ERR_ARGC_MIN);
 	close(fd);
+	//todo: make free func
 	free(info.data);
+	free(info.no);
+	free(info.so);
+	free(info.we);
+	free(info.ea);
+	free(info.s);
 	return (0);
 }
 

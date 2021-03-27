@@ -60,7 +60,6 @@ int ft_valid_color_str(char *str, t_info *info)
 		ft_error(ERR_MAP_C);
 	if(!(wo_spaces = ft_wo_spaces_str(NULL, str + 1)))
 		ft_error(ERR_MAP_C);
-	printf("%s\n", wo_spaces);
 	while (wo_spaces[++i])
 	{
 		if(wo_spaces[i] == ',')
@@ -99,10 +98,7 @@ void ft_fill_color(t_info *info, int rgb[3], char *str)
 	}
 }
 
-unsigned long	ft_color_to_hex(int red, int green, int blue)
-{
-	return (red << 16 | green << 8 | blue);
-}
+
 
 void	ft_set_colors(char *str, t_info *info)
 {
@@ -116,17 +112,65 @@ void	ft_set_colors(char *str, t_info *info)
 	}
 	else if (str[0] == 'F')
 	{
-		//prarams++
+		//params++
 		info->floor = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
 	}
 }
+void ft_set_path(char *str, t_info *info, char **path)
+{
 
-void ft_set_params(char *str, t_info *info)
+	//printf("%s\n",str);
+	*path = ft_strtrim(str," ");
+	printf("%s\n", *path);
+	//todo: free allocated path dir in struct .. now in main
+
+}
+void ft_get_path(char *str, t_info *info)
+{
+	if(str[0] == 'N' && str[1] == 'O')
+	{
+
+		ft_set_path((str + 2),info, &info->no);
+	}
+	else if(str[0] == 'W' && str[1] == 'E')
+	{
+		ft_set_path((str + 2),info, &info->we);
+	}
+	else if(str[0] == 'E' && str[1] == 'A')
+	{
+		ft_set_path((str + 2),info, &info->ea);
+	}
+	else if(str[0] == 'S' && str[1] == 'O')
+	{
+		ft_set_path((str + 2),info, &info->so);
+	}
+	else if(str[0] == 'S')
+	{
+		ft_set_path((str + 1),info, &info->s);
+	}
+}
+
+
+void ft_set_textures(char *str, t_info *info)
+{
+	//get_path_from_file
+	ft_get_path(str, info);
+	//get_correct_path
+	//printf("%s\n",str);
+}
+
+void ft_parse_params(char *str, t_info *info)
 {
 	if(str[0] == 'R')
 		ft_set_res(++str, info);
 	else if(str[0] == 'C' || str[0] == 'F')
 		ft_set_colors(str, info);
+	else if((str[0] == 'N' && str[1] == 'O') ||
+			(str[0] == 'W' && str[1] == 'E') ||
+			(str[0] == 'E' && str[1] == 'A') ||
+			(str[0] == 'S')
+			)
+		ft_set_textures(str, info);
 }
 
 void ft_read_cub(int fd, t_info *info)
@@ -143,7 +187,7 @@ void ft_read_cub(int fd, t_info *info)
 			ft_error(ERR_MAP_D);
 		/*set params*/
 		if (ft_valid_str(line))
-			ft_set_params(line, info);
+			ft_parse_params(line, info);
 		else
 			ft_error(ERR_MAP_BAD);
 		/*count map size*/

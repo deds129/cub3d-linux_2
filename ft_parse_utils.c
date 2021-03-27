@@ -9,11 +9,20 @@ void ft_print_params(t_info *info)
 	printf("so_texture: %s\n",info->so);
 	printf("we_texture: %s\n",info->we);
 	printf("ea_texture: %s\n",info->ea);
-	printf("s_texture: %s\n",info->s);
+	printf("sp_texture: %s\n",info->s);
 	printf("floor_color: %i\n",info->floor);
-
 	printf("celling_color: %i\n",info->cell);
 
+	printf("\nparams check\n");
+	printf("res_x: %d\n",info->has_param[0]);
+	printf("res_y: %d\n",info->has_param[0]);
+	printf("no_texture: %d\n",info->has_param[1]);
+	printf("so_texture: %d\n",info->has_param[2]);
+	printf("we_texture: %d\n",info->has_param[3]);
+	printf("ea_texture: %d\n",info->has_param[4]);
+	printf("sp_texture: %d\n",info->has_param[5]);
+	printf("floor_color: %d\n",info->has_param[6]);
+	printf("celling_color: %d\n",info->has_param[7]);
 	printf("\n===MAP===\n");
 //	int i;
 //	i = -1;
@@ -76,7 +85,13 @@ void			ft_skip_not_num(char **str)
 
 void			ft_skip_num(char **str)
 {
-	while (ft_isdigit(**str))
+	while (ft_isdigit(**str) && **str)
+		*str += 1;
+}
+
+void			ft_skip_spaces(char **str)
+{
+	while (**str == ' ' && **str)
 		*str += 1;
 }
 
@@ -105,4 +120,9 @@ int				ft_spaces_num(char *str)
 		str++;
 	}
 	return (sp_len);
+}
+
+unsigned long	ft_color_to_hex(int red, int green, int blue)
+{
+	return (red << 16 | green << 8 | blue);
 }
