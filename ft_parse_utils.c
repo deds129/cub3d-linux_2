@@ -14,8 +14,7 @@ void ft_print_params(t_info *info)
 	printf("celling_color: %i\n",info->cell);
 
 	printf("\nparams check\n");
-	printf("res_x: %d\n",info->has_param[0]);
-	printf("res_y: %d\n",info->has_param[0]);
+	printf("res: %d\n",info->has_param[0]);
 	printf("no_texture: %d\n",info->has_param[1]);
 	printf("so_texture: %d\n",info->has_param[2]);
 	printf("we_texture: %d\n",info->has_param[3]);

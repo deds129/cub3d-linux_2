@@ -55,7 +55,7 @@ int main (int argc, char *argv[])
 			info.save = 1;
 		}
 		ft_read_cub(fd, &info);
-		ft_print_params(&info);
+	//	ft_print_params(&info);
 	}
 	else
 		ft_error(ERR_ARGC_MIN);

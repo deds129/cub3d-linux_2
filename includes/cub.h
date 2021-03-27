@@ -60,7 +60,15 @@ typedef struct	s_info
 	int res_x;
 	int res_y;
 	//флаг для повторений
-	int dup_flag;
+
+	//0 res
+	//1 no
+	//2 so
+	//3 we
+	//4 ea
+	//5 sp
+	//6 floor
+	//7 celling
 	int has_param[8];
 
 	char *no;

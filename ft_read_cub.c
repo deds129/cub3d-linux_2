@@ -5,8 +5,6 @@ void ft_set_res(char *str, t_info *info)
 
 	if (str[0] != ' ')
 		ft_error(ERR_MAP_RES);
-		if (info->res_x != 0 && info->res_y != 0)
-			info->dup_flag = 1;
 		if(ft_valid_res_str(str) && ft_num_counter(str) == 2)
 		{
 			ft_skip_not_num(&str);
@@ -106,13 +104,13 @@ void	ft_set_colors(char *str, t_info *info)
 	ft_fill_color(info, rgb, str);
 	if(str[0] == 'C')
 	{
-		//prarams++
 		info->cell = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
+		info->has_param[7]++;
 	}
 	else if (str[0] == 'F')
 	{
-		//params++
 		info->floor = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
+		info->has_param[6]++;
 	}
 }
 
@@ -153,9 +151,8 @@ void ft_set_path(char *str, t_info *info, char **path)
 
 	//printf("%s\n",str);
 	*path = ft_strtrim(str," ");
-	printf("%s\n", *path);
 	//todo: free allocated path dir in struct .. now in main
-	ft_valid_path_check(path,info);
+	//ft_valid_path_check(path,info);
 
 }
 void ft_get_path(char *str, t_info *info)
@@ -163,22 +160,27 @@ void ft_get_path(char *str, t_info *info)
 	if(str[0] == 'N' && str[1] == 'O' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->no);
+		info->has_param[1]++;
 	}
 	else if(str[0] == 'W' && str[1] == 'E' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->we);
+		info->has_param[3]++;
 	}
 	else if(str[0] == 'E' && str[1] == 'A' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->ea);
+		info->has_param[4]++;
 	}
 	else if(str[0] == 'S' && str[1] == 'O' && ft_check_space((str + 2),info))
 	{
 		ft_set_path((str + 2),info, &info->so);
+		info->has_param[2]++;
 	}
 	else if(str[0] == 'S' && ft_check_space((str + 1),info))
 	{
 		ft_set_path((str + 1),info, &info->s);
+		info->has_param[5]++;
 	}
 }
 
@@ -213,12 +215,13 @@ void ft_read_cub(int fd, t_info *info)
 	while (rd > 0)
 	{
 		rd = get_next_line(fd, &line);
-		if (info->dup_flag == 1)
-			ft_error(ERR_MAP_D);
 		/*set params*/
 		//todo: hasparams+ to check + muliply check
 		if (ft_valid_str(line))
+		{
 			ft_parse_params(line, info);
+			//todo: check duplicate
+		}
 		else
 			ft_error(ERR_MAP_BAD);
 		/*count map size*/
