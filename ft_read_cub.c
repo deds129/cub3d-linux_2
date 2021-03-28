@@ -1,196 +1,5 @@
 #include "./includes/cub.h"
 
-void ft_set_res(char *str, t_info *info)
-{
-
-	if (str[0] != ' ')
-		ft_error(ERR_MAP_RES);
-		if(ft_valid_res_str(str) && ft_num_counter(str) == 2)
-		{
-			ft_skip_not_num(&str);
-			info->res_x = ft_atoi(str);
-			ft_skip_num(&str);
-			ft_skip_not_num(&str);
-			info->res_y = ft_atoi(str);
-			//есть строка с расширением
-			info->has_param[0]++;
-		}
-		else
-			ft_error(ERR_MAP_RES);
-}
-
-char *ft_wo_spaces_str(char *wo_str, char *str)
-{
-	int i;
-	int j;
-	int len;
-
-	i = 0;
-	j = 0;
-	len = ft_strlen(str + 1) - ft_spaces_num(str + 1);
-	if (!(wo_str = (char *)malloc(sizeof(char *) * (len + 1))))
-		return (NULL);
-	wo_str[len] = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-		{
-			wo_str[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	return (wo_str);
-}
-
-int ft_valid_color_str(char *str, t_info *info)
-{
-	int commas;
-	int nums;
-	int i;
-	char *wo_spaces;
-
-	i = 0;
-	commas = ft_commas_num(str);
-	nums = ft_num_counter(str);
-	if (str[1] != ' ' || commas != 2 || nums != 3)
-		ft_error(ERR_MAP_C);
-	if(!(wo_spaces = ft_wo_spaces_str(NULL, str + 1)))
-		ft_error(ERR_MAP_C);
-	while (wo_spaces[++i])
-	{
-		if(wo_spaces[i] == ',')
-		{
-			if (!(ft_isdigit(wo_spaces[i - 1]))
-				|| !(ft_isdigit(wo_spaces[i + 1])))
-				ft_error(ERR_MAP_C);
-		}
-	}
-	free(wo_spaces);
-}
-
-void	ft_color_val(char **str, int *color)
-{
-	ft_skip_not_num(str);
-	if (ft_isdigit(**str) || **str == '-')
-		*color = ft_atoi(*str);
-	ft_skip_num(str);
-}
-
-//error
-void	ft_check_color(int color)
-{
-	if (color > 255 || color < 0)
-		ft_error(ERR_MAP_C);
-}
-void ft_fill_color(t_info *info, int rgb[3], char *str)
-{
-	int i;
-
-	i = -1;
-	while (++i < 3)
-	{
-		ft_color_val(&str, &rgb[i]);
-		ft_check_color(rgb[i]);
-	}
-}
-
-
-
-void	ft_set_colors(char *str, t_info *info)
-{
-	int rgb[3];
-	ft_valid_color_str(str, info);
-	ft_fill_color(info, rgb, str);
-	if(str[0] == 'C')
-	{
-		info->cell = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
-		info->has_param[7]++;
-	}
-	else if (str[0] == 'F')
-	{
-		info->floor = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
-		info->has_param[6]++;
-	}
-}
-
-void 	ft_valid_path_check(char **path, t_info *info)
-{
-	int fd;
-	int len;
-	char *suffix;
-	char buf;
-
-	fd = open(*path, O_RDONLY);
-	if(read(fd, &buf, 1) < 0 || fd == -1)
-		ft_error(ERR_MAP_C);
-	close(fd);
-	len = ft_strlen(*path);
-	suffix = ft_strdup(*path);
-	if (suffix[len - 3] != 'x' && suffix[len - 2] != 'p' && suffix[len - 1]
-	!= 'm')
-	{
-		free(suffix);
-		ft_error(ERR_MAP_C);
-	}
-	free(suffix);
-}
-
-int	ft_check_space(char *str, t_info *info)
-{
-	if(str[0] != ' ')
-	{
-		ft_error(ERR_MAP_C);
-		return (0);
-	}
-	return (1);
-}
-
-void ft_set_path(char *str, t_info *info, char **path)
-{
-
-	//printf("%s\n",str);
-	*path = ft_strtrim(str," ");
-	//todo: free allocated path dir in struct .. now in main
-	//ft_valid_path_check(path,info);
-
-}
-void ft_get_path(char *str, t_info *info)
-{
-	if(str[0] == 'N' && str[1] == 'O' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->no);
-		info->has_param[1]++;
-	}
-	else if(str[0] == 'W' && str[1] == 'E' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->we);
-		info->has_param[3]++;
-	}
-	else if(str[0] == 'E' && str[1] == 'A' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->ea);
-		info->has_param[4]++;
-	}
-	else if(str[0] == 'S' && str[1] == 'O' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->so);
-		info->has_param[2]++;
-	}
-	else if(str[0] == 'S' && ft_check_space((str + 1),info))
-	{
-		ft_set_path((str + 1),info, &info->s);
-		info->has_param[5]++;
-	}
-}
-
-
-void ft_set_textures(char *str, t_info *info)
-{
-	//get_path_from_file
-	ft_get_path(str, info);
-}
-
 void ft_parse_params(char *str, t_info *info)
 {
 	if(str[0] == 'R')
@@ -203,6 +12,19 @@ void ft_parse_params(char *str, t_info *info)
 			(str[0] == 'S')
 			)
 		ft_set_textures(str, info);
+}
+
+void ft_check_params(t_info *info)
+{
+	int i;
+	while (i < 8)
+	{
+		//todo: free duplicate
+		if(info->has_param[i] == 0)
+			ft_error(ERR_MAP_BAD_ARG);
+		if(info->has_param[i] > 1)
+			ft_error(ERR_MAP_BAD_ARG);
+	}
 }
 
 void ft_read_cub(int fd, t_info *info)
@@ -218,15 +40,13 @@ void ft_read_cub(int fd, t_info *info)
 		/*set params*/
 		//todo: hasparams+ to check + muliply check
 		if (ft_valid_str(line))
-		{
 			ft_parse_params(line, info);
-			//todo: check duplicate
-		}
 		else
 			ft_error(ERR_MAP_BAD);
 		/*count map size*/
 		free(line);
 	}
+	//ft_check_params(info);
 	close(fd);
 }
 

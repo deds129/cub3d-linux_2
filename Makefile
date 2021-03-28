@@ -16,9 +16,12 @@ SRCS 	=		main.c \
 				./gnl/get_next_line.c \
 				./gnl/get_next_line_utils.c \
 				ft_errors.c \
-				ft_read_cub.c \
 				ft_minilib.c \
-				ft_parse_utils.c
+                ft_resolution.c \
+                ft_texture.c \
+                ft_parse_utils.c \
+				ft_read_cub.c \
+				ft_color.c
 
 OBJS 	= 	$(SRCS:.c=.o)
 CC 		= 	gcc

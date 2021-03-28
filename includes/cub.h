@@ -135,6 +135,16 @@ int	ft_spaces_num(char *str);
 unsigned long	ft_color_to_hex(int red, int green, int blue);
 void			ft_skip_spaces(char **str);
 
+/*res*/
+void ft_set_res(char *str, t_info *info);
+void	ft_set_colors(char *str, t_info *info);
+
+/*color*/
+
+/*texture*/
+void ft_set_textures(char *str, t_info *info);
+
+
 
 
 /*mlx tier*/
