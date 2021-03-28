@@ -9,7 +9,7 @@ void 	ft_valid_path_check(char **path, t_info *info)
 
 	fd = open(*path, O_RDONLY);
 	if(read(fd, &buf, 1) < 0 || fd == -1)
-		ft_error(ERR_MAP_C);
+		ft_error("Can't open texture path\n", info);
 	close(fd);
 	len = ft_strlen(*path);
 	suffix = ft_strdup(*path);
@@ -17,7 +17,7 @@ void 	ft_valid_path_check(char **path, t_info *info)
 															!= 'm')
 	{
 		free(suffix);
-		ft_error(ERR_MAP_C);
+		ft_error("Wrong texture extension\n", info);
 	}
 	free(suffix);
 }
@@ -26,7 +26,7 @@ int	ft_check_space(char *str, t_info *info)
 {
 	if(str[0] != ' ')
 	{
-		ft_error(ERR_MAP_C);
+		ft_error("Bad texture parameter\n", info);
 		return (0);
 	}
 	return (1);

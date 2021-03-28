@@ -35,16 +35,16 @@ int ft_valid_color_str(char *str, t_info *info)
 	commas = ft_commas_num(str);
 	nums = ft_num_counter(str);
 	if (str[1] != ' ' || commas != 2 || nums != 3)
-		ft_error(ERR_MAP_C);
+		ft_error("Bad color parameter\n", info);
 	if(!(wo_spaces = ft_wo_spaces_str(NULL, str + 1)))
-		ft_error(ERR_MAP_C);
+		ft_error("Bad color parameter\n", info);
 	while (wo_spaces[++i])
 	{
 		if(wo_spaces[i] == ',')
 		{
 			if (!(ft_isdigit(wo_spaces[i - 1]))
 				|| !(ft_isdigit(wo_spaces[i + 1])))
-				ft_error(ERR_MAP_C);
+				ft_error("Bad color parameter\n", info);
 		}
 	}
 	free(wo_spaces);
@@ -59,10 +59,10 @@ void	ft_color_val(char **str, int *color)
 }
 
 //error
-void	ft_check_color(int color)
+void	ft_check_color(int color, t_info *info)
 {
 	if (color > 255 || color < 0)
-		ft_error(ERR_MAP_C);
+		ft_error("Bad color parameter\n", info);
 }
 void ft_fill_color(t_info *info, int rgb[3], char *str)
 {
@@ -72,7 +72,7 @@ void ft_fill_color(t_info *info, int rgb[3], char *str)
 	while (++i < 3)
 	{
 		ft_color_val(&str, &rgb[i]);
-		ft_check_color(rgb[i]);
+		ft_check_color(rgb[i], info);
 	}
 }
 
@@ -85,13 +85,11 @@ void	ft_set_colors(char *str, t_info *info)
 	ft_fill_color(info, rgb, str);
 	if(str[0] == 'C')
 	{
-		printf("C: %d %d %d\n",rgb[0],rgb[1],rgb[2]);
 		info->cell = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
 		info->has_param[7]++;
 	}
 	else if (str[0] == 'F')
 	{
-		printf("F: %d %d %d\n",rgb[0],rgb[1],rgb[2]);
 		info->floor = ft_color_to_hex(rgb[0],rgb[1],rgb[2]);
 		info->has_param[6]++;
 	}

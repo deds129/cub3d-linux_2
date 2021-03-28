@@ -21,7 +21,8 @@ SRCS 	=		main.c \
                 ft_texture.c \
                 ft_parse_utils.c \
 				ft_read_cub.c \
-				ft_color.c
+				ft_color.c \
+				ft_free_all.c
 
 OBJS 	= 	$(SRCS:.c=.o)
 CC 		= 	gcc

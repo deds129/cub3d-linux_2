@@ -5,7 +5,7 @@ void ft_set_res(char *str, t_info *info)
 {
 
 	if (str[0] != ' ')
-		ft_error(ERR_MAP_RES);
+		ft_error("Bad resolution parameter\n", info);
 	if(ft_valid_res_str(str) && ft_num_counter(str) == 2)
 	{
 		ft_skip_not_num(&str);
@@ -17,5 +17,5 @@ void ft_set_res(char *str, t_info *info)
 		info->has_param[0]++;
 	}
 	else
-		ft_error(ERR_MAP_RES);
+		ft_error("Bad resolution parameter\n", info);
 }

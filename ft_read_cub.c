@@ -21,9 +21,12 @@ void ft_check_params(t_info *info)
 	{
 		//todo: free duplicate
 		if(info->has_param[i] == 0)
-			ft_error(ERR_MAP_BAD_ARG);
+			ft_error("Missing arguments\n" , info);
 		if(info->has_param[i] > 1)
-			ft_error(ERR_MAP_BAD_ARG);
+		{
+			ft_error("Too many arguments\n" , info);
+		}
+		i++;
 	}
 }
 
@@ -42,11 +45,11 @@ void ft_read_cub(int fd, t_info *info)
 		if (ft_valid_str(line))
 			ft_parse_params(line, info);
 		else
-			ft_error(ERR_MAP_BAD);
+			ft_error("File isn't valid\n" , info);
 		/*count map size*/
 		free(line);
 	}
-	//ft_check_params(info);
+	ft_check_params(info);
 	close(fd);
 }
 

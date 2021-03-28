@@ -119,7 +119,8 @@ typedef struct	s_all // структура для всего вместе
 }				  t_all;
 
 /*errors handle*/
-void ft_error(int err_code);
+//void ft_error(int err_code);
+void ft_error(char *err_msg, t_info *info);
 
 /*read tier*/
 void ft_read_cub(int fd, t_info *info);
@@ -144,6 +145,8 @@ void	ft_set_colors(char *str, t_info *info);
 /*texture*/
 void ft_set_textures(char *str, t_info *info);
 
+/*free*/
+void ft_free_all(t_info *info);
 
 
 
