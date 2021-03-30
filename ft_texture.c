@@ -32,40 +32,27 @@ int	ft_check_space(char *str, t_info *info)
 	return (1);
 }
 
-void ft_set_path(char *str, t_info *info, char **path)
+void ft_set_path(char *str, t_info *info, char **path, int idx)
 {
-
-	//printf("%s\n",str);
-	*path = ft_strtrim(str," ");
-	//todo: free allocated path dir in struct .. now in main
+	info->has_param[idx]++;
+	while (*str != ' ')
+		str++;
+	str += ft_skip_spaces(str);
+	if (info->has_param[idx] < 2)
+		*path = ft_strtrim(str," ");
 	ft_valid_path_check(path,info);
 
 }
 void ft_set_textures(char *str, t_info *info)
 {
 	if(str[0] == 'N' && str[1] == 'O' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->no);
-		info->has_param[1]++;
-	}
+		ft_set_path((str + 2),info, &info->no,1);
 	else if(str[0] == 'W' && str[1] == 'E' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->we);
-		info->has_param[3]++;
-	}
+			ft_set_path((str + 2),info, &info->we,3);
 	else if(str[0] == 'E' && str[1] == 'A' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->ea);
-		info->has_param[4]++;
-	}
+		ft_set_path((str + 2),info, &info->ea,4);
 	else if(str[0] == 'S' && str[1] == 'O' && ft_check_space((str + 2),info))
-	{
-		ft_set_path((str + 2),info, &info->so);
-		info->has_param[2]++;
-	}
+		ft_set_path((str + 2),info, &info->so,2);
 	else if(str[0] == 'S' && ft_check_space((str + 1),info))
-	{
-		ft_set_path((str + 1),info, &info->s);
-		info->has_param[5]++;
-	}
+		ft_set_path((str + 1),info, &info->s,5);
 }

@@ -1,8 +1,17 @@
 R   480 640
+R   666 666
 
 NO      ./pics/stone.xpm
 SO     ./pics/hexagone.xpm
+
 WE        ./pics/redbrick.xpm
+WE        ./pics/wood.xpm
+WE        ./pics/wood.xpm
+WE        ./pics/wood.xpm
+WE        ./pics/wood.xpm
+WE        ./pics/wood.xpm
+
+
 EA  ./pics/wood.xpm
 S       ./pics/barrel.xpm
 

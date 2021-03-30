@@ -134,7 +134,7 @@ void ft_skip_num(char **str);
 int	ft_commas_num(char *str);
 int	ft_spaces_num(char *str);
 unsigned long	ft_color_to_hex(int red, int green, int blue);
-void			ft_skip_spaces(char **str);
+int			ft_skip_spaces(char *str);
 
 /*res*/
 void ft_set_res(char *str, t_info *info);

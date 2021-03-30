@@ -88,10 +88,13 @@ void			ft_skip_num(char **str)
 		*str += 1;
 }
 
-void			ft_skip_spaces(char **str)
+int			ft_skip_spaces(char *str)
 {
-	while (**str == ' ' && **str)
-		*str += 1;
+	int i;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	return (i);
 }
 
 int				ft_commas_num(char *str)

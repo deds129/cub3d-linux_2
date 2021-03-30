@@ -1,5 +1,19 @@
 #include "./includes/cub.h"
 
+void ft_check_params(t_info *info)
+{
+	int i;
+	i = -1;
+	while (++i < 8)
+	{
+		//todo: free duplicate
+		if(info->has_param[i] == 0)
+			ft_error("Missing arguments\n" , info);
+		if(info->has_param[i] > 1)
+			ft_error("Too many arguments\n" , info);
+	}
+}
+
 void ft_parse_params(char *str, t_info *info)
 {
 	if(str[0] == 'R')
@@ -12,22 +26,6 @@ void ft_parse_params(char *str, t_info *info)
 			(str[0] == 'S')
 			)
 		ft_set_textures(str, info);
-}
-
-void ft_check_params(t_info *info)
-{
-	int i;
-	while (i < 8)
-	{
-		//todo: free duplicate
-		if(info->has_param[i] == 0)
-			ft_error("Missing arguments\n" , info);
-		if(info->has_param[i] > 1)
-		{
-			ft_error("Too many arguments\n" , info);
-		}
-		i++;
-	}
 }
 
 void ft_read_cub(int fd, t_info *info)
