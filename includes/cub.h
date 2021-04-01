@@ -81,7 +81,8 @@ typedef struct	s_info
 
 	int cell;
 	char **map;
-	char **data;
+	int iline_num;
+	int iline_size;
 	int save;
 }				t_info;
 
@@ -155,5 +156,7 @@ void            pixel_put(t_win *wnd, int x, int y, int color);
 
 /*debug*/
 void ft_print_params(t_info *info);
+
+int ft_map_bits(char *line, t_info *info);
 
 #endif

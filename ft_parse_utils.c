@@ -34,7 +34,7 @@ int ft_valid_str(char *data)
 	if (data[0] == 'R' || data[0] == 'N' || data[0] == 'S' ||
 		data[0] == 'W' || data[0] == 'E' || data[0] == 'F' ||
 		data[0] == 'C' || data[0] == '\n' || data[0] == ' ' ||
-		data[0] == '1' || data[0] == '\0')
+		data[0] == '1' || data[0] == '\0' || data[0] == '2' || data[0] == '\t')
 		return (1);
 	return (0);
 }

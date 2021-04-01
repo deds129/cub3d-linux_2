@@ -17,8 +17,6 @@ void ft_free_inftext(t_info *info)
 
 void ft_free_all(t_info *info)
 {
-	if (info->data)
-		free(info->data);
 	if (info->map)
 		free(info->map);
 	ft_free_inftext(info);

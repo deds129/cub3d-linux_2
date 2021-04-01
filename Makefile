@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #FOR LINUX
-CFLAGS 	=  	-Wall -Wextra -Werror
+CFLAGS 	= -g 	-Wall -Wextra -Werror
 SRCS 	=		main.c \
 				./gnl/get_next_line.c \
 				./gnl/get_next_line_utils.c \
@@ -40,7 +40,7 @@ LIBS = -lmlx -lXext -lX11 -lm
 
 
 .c.o:
-	${CC} ${GFLAG} ${LMFLAGS} -c $< -o ${<:.c=.o}
+	${CC} -g ${GFLAG} ${LMFLAGS} -c $< -o ${<:.c=.o}
 
 all:  ${NAME}
 
