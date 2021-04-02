@@ -103,6 +103,21 @@ int ft_map_bits(char *line, t_info *info)
 
 }
 
+void ft_parse_map(char *str, t_info *info)
+{
+	int fd;
+	int rd;
+	char *line;
+
+	rd = 1;
+	line = NULL;
+	if (info->iline_size == 0 || info->iline_num == 0)
+		ft_error("Map not passed\n",info);
+	//gnl + allocate memory
+	//put spaces
+	//check map valid
+}
+
 void ft_read_cub(int fd, t_info *info)
 {
 	int rd;
@@ -123,6 +138,7 @@ void ft_read_cub(int fd, t_info *info)
 		free(tmp);
 	}
 	ft_check_params(info);
+	ft_parse_map(line, info);
 	close(fd);
 }
 
