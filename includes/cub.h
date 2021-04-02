@@ -84,6 +84,7 @@ typedef struct	s_info
 	int iline_num;
 	int iline_size;
 	int save;
+	int map_start;
 }				t_info;
 
 typedef struct	s_win //структура для окна

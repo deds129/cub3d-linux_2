@@ -11,7 +11,8 @@
 # **************************************************************************** #
 
 #FOR LINUX
-CFLAGS 	= -g 	-Wall -Wextra -Werror
+DEBUGFLAGS = -g -fsanitize=address
+CFLAGS 	= 	-Wall -Wextra -Werror
 SRCS 	=		main.c \
 				./gnl/get_next_line.c \
 				./gnl/get_next_line_utils.c \
@@ -40,12 +41,12 @@ LIBS = -lmlx -lXext -lX11 -lm
 
 
 .c.o:
-	${CC} -g ${GFLAG} ${LMFLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${DEBUGFLAGS} ${GFLAG} ${LMFLAGS} -c $< -o ${<:.c=.o}
 
 all:  ${NAME}
 
 ${NAME}: comp_lib ${MLX} ${OBJS}
-	${CC} ${CFLAGS} ${LMFLAGS} ${OBJS} ${P_LIBFT}libft.a ${LIBS} -o ${NAME}
+	${CC} ${DEBUGFLAGS} ${CFLAGS} ${LMFLAGS} ${OBJS} ${P_LIBFT}libft.a ${LIBS} -o ${NAME}
 
 $(MLX):
 				@$(MAKE) -C ${MLX_PATH}

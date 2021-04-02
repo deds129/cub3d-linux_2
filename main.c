@@ -56,11 +56,12 @@ int main (int argc, char *argv[])
 		}
 		ft_read_cub(fd, &info);
 		ft_print_params(&info);
+		printf("lines num: %d\n", info.iline_num);
+		printf("line size: %d\n", info.iline_size);
 	}
 	else
 		ft_error("Bad arguments\n",&info);
 	close(fd);
-	//todo: make free func
 	ft_free_all(&info);
 	return (0);
 }
