@@ -26,6 +26,7 @@ void ft_parse_args(int ac, char *filename, char *save, t_info *info)
 		flag = ft_check_str(save, "--save", 6);
 	if (!flag)
 		ft_error("Wrong save flag\n" , info);
+	info->filename = filename;
 }
 
 int ft_open_cub(char *filename, t_info *info)
@@ -44,9 +45,9 @@ int main (int argc, char *argv[])
 	t_info info;
 	int fd;
 	ft_bzero(&info,sizeof(info));
+	fd = ft_open_cub(argv[1], &info);
 	if (argc == 2 || argc == 3)
 	{
-		fd = ft_open_cub(argv[1], &info);
 		if (argc == 2)
 			ft_parse_args(2, argv[1], NULL, &info);
 		else if (argc == 3)

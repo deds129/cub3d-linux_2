@@ -2,11 +2,14 @@
 # define CUB_H
 
 # include "get_next_line.h"
+
 //for MacOS
-//# include "../minilib/mlx.h"
+# include "../minilibx_mac/mlx.h"
+//# include "../minilibx_mac/mlx_int.h"
+
 //for linux
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+//# include "../minilibx-linux/mlx.h"
+//# include "../minilibx-linux/mlx_int.h"
 
 # include "libft.h"
 # include <fcntl.h>
@@ -85,6 +88,7 @@ typedef struct	s_info
 	int iline_size;
 	int save;
 	int map_start;
+	char *filename;
 }				t_info;
 
 typedef struct	s_win //структура для окна

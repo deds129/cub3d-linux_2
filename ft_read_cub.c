@@ -33,7 +33,7 @@ void ft_map_params(char *line, t_info *info)
 	i = 0;
 	if (ft_map_bits(line,info) == 1 && ft_check_pars(info))
 	{
-		if (ft_strlen(line) > info->iline_size)
+		if ((int)ft_strlen(line) > info->iline_size)
 			info->iline_size = ft_strlen(line);
 		info->iline_num++;
 		//todo: fix /n/n bug
@@ -88,7 +88,7 @@ int ft_map_bits(char *line, t_info *info)
 	if (ft_map_char(line[0]))
 	{
 		i = -1;
-		if (line == "\n")
+		if (ft_strncmp(line,"\n",ft_strlen(line)) == 0)
 			ft_error("Wrong map\n",info);
 		while (line[++i])
 		{
@@ -103,9 +103,9 @@ int ft_map_bits(char *line, t_info *info)
 
 }
 
-void ft_parse_map(char *str, t_info *info)
+void ft_parse_map(t_info *info)
 {
-	int fd;
+//	int fd;
 	int rd;
 	char *line;
 
@@ -138,7 +138,7 @@ void ft_read_cub(int fd, t_info *info)
 		free(tmp);
 	}
 	ft_check_params(info);
-	ft_parse_map(line, info);
+	ft_parse_map(info);
 	close(fd);
 }
 

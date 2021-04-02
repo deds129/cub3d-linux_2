@@ -24,7 +24,7 @@ char *ft_wo_spaces_str(char *wo_str, char *str)
 	return (wo_str);
 }
 
-int ft_valid_color_str(char *str, t_info *info)
+void ft_valid_color_str(char *str, t_info *info)
 {
 	int commas;
 	int nums;
