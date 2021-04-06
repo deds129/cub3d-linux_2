@@ -1,9 +1,12 @@
 #include "./includes/cub.h"
 
+//void ft_check_max_res(t_info *info)
+//{
+//
+//}
 
 void ft_set_res(char *str, t_info *info)
 {
-
 	if (str[0] != ' ')
 		ft_error("Bad resolution parameter\n", info);
 	if(ft_valid_res_str(str) && ft_num_counter(str) == 2)

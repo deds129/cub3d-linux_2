@@ -34,8 +34,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Imlx_lnx
 DEBUGFLAGS = -g -fsanitize=address
 RM 		= 	rm -rf
+#can change to static libx ./minilibx_mac/mlx.h
 HEADERS = ./includes/cub.h ./includes/get_next_line.h \
-			./includes/libft.h ./minilibx-mac/mlx.h
+			./includes/libft.h ./minilibx_dy_mac/mlx.h
+
 OFLAGS = -L$(LIBFT) -lft -lm -framework OpenGL -framework AppKit -lmlx
 
 .PHONY: all clean fclean re
