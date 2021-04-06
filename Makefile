@@ -36,9 +36,9 @@ DEBUGFLAGS = -g -fsanitize=address
 RM 		= 	rm -rf
 #can change to static libx ./minilibx_mac/mlx.h
 HEADERS = ./includes/cub.h ./includes/get_next_line.h \
-			./includes/libft.h ./minilibx_dy_mac/mlx.h
+			./includes/libft.h ./minilibx_mac/mlx.h
 
-OFLAGS = -L$(LIBFT) -lft -lm -framework OpenGL -framework AppKit -lmlx
+OFLAGS = -L$(LIBFT) -lft -lm -framework OpenGL -framework AppKit -lmlx -Lminilibx_mac
 
 .PHONY: all clean fclean re
 

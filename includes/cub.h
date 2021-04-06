@@ -70,6 +70,10 @@ typedef struct	s_info
 {
 	int res_x; //0
 	int res_y; //0
+
+	int max_res_x;
+	int max_res_y;
+
 	int has_param[8];
 
 	char *no; //1
@@ -120,6 +124,7 @@ void ft_parse_map(t_info *info);
 int ft_map_char(char c);
 
 /*res*/
+void ft_check_max_res(t_info *info);
 void ft_set_res(char *str, t_info *info);
 void	ft_set_colors(char *str, t_info *info);
 

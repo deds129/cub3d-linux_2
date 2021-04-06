@@ -57,7 +57,6 @@ int main (int argc, char *argv[])
 			ft_parse_args(3, argv[1], argv[2], &info);
 		ft_read_cub(fd, &info);
 
-
 		//todo: delete this
 		ft_test_fill(&info);
 		ft_print_params(&info);

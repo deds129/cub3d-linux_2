@@ -2,7 +2,8 @@
 
 //void ft_check_max_res(t_info *info)
 //{
-//
+//	mlx_get_screen_size(&info->max_res_x, &info->max_res_y);
+//	printf("max res: x: %d y: %d",info->max_res_x, info->max_res_y);
 //}
 
 void ft_set_res(char *str, t_info *info)
@@ -17,7 +18,9 @@ void ft_set_res(char *str, t_info *info)
 		ft_skip_not_num(&str);
 		info->res_y = ft_atoi(str);
 		//есть строка с расширением
+		//ft_check_max_res(info);
 		info->has_param[0]++;
+
 	}
 	else
 		ft_error("Bad resolution parameter\n", info);
