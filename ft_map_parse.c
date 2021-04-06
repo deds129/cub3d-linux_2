@@ -55,8 +55,11 @@ void ft_parse_map(t_info *info)
 	int fd;
 	int rd;
 	char *line;
+	char *str_map;
+	char *tmp;
 	int i;
 
+	str_map = NULL;
 
 	fd = open(info->filename, O_RDONLY);
 	if (info->iline_size == 0 || info->iline_num == 0)
@@ -65,8 +68,8 @@ void ft_parse_map(t_info *info)
 	printf("line size: %d\n", info->iline_size);
 
 	//выделяем память под строки
-//	if(!(info->map = malloc(sizeof(char *) * (info->iline_num))))
-//		ft_error("Malloc error\n", info);
+	if(!(info->map = malloc(sizeof(char *) * (info->iline_num))))
+		ft_error("Malloc error\n", info);
 	rd = 1;
 	line = NULL;
 	i = 0;
@@ -76,11 +79,21 @@ void ft_parse_map(t_info *info)
 		//todo: upgrade
 		if (ft_map_bits(line) == 1)
 		{
-			printf("%s\n", line);
-			//ft_fill_map_str(line, info, &i);
+			//printf("%s\n", line);
+			if (!(str_map))
+				str_map = ft_strdup(line);
+			else
+			{
+				tmp = str_map;
+				str_map = ft_strjoin(str_map,line);
+				free(tmp);
+			}
+
 		}
 		free(line);
+
 	}
+	printf("%s\n",str_map);
 
 	//todo: do this cases
 	//put spaces
