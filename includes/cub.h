@@ -142,6 +142,7 @@ void ft_launch_game(t_info *info);
 
 /*debug*/
 void ft_print_params(t_info *info);
+void ft_test_fill(t_info *info);
 
 
 

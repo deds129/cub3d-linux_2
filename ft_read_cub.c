@@ -43,7 +43,8 @@ void ft_read_cub(int fd, t_info *info)
 	ft_check_params(info);
 	//todo: заполняем карту и проверяем валидность
 	ft_parse_map(info);
-	ft_launch_game(info);
+
+	//ft_launch_game(info);
 	close(fd);
 }
 

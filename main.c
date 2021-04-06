@@ -23,7 +23,10 @@ void ft_parse_args(int ac, char *filename, char *save, t_info *info)
 	if (ac == 2 && !save)
 		flag = 1;
 	else if (ac == 3 && save != NULL)
+	{
 		flag = ft_check_str(save, "--save", 6);
+		info->save = 1;
+	}
 	if (!flag)
 		ft_error("Wrong save flag\n" , info);
 	info->filename = filename;
@@ -51,14 +54,14 @@ int main (int argc, char *argv[])
 		if (argc == 2)
 			ft_parse_args(2, argv[1], NULL, &info);
 		else if (argc == 3)
-		{
 			ft_parse_args(3, argv[1], argv[2], &info);
-			info.save = 1;
-		}
 		ft_read_cub(fd, &info);
+
+
+		//todo: delete this
+		ft_test_fill(&info);
 		ft_print_params(&info);
-		printf("lines num: %d\n", info.iline_num);
-		printf("line size: %d\n", info.iline_size);
+		ft_launch_game(&info);
 	}
 	else
 		ft_error("Bad arguments\n",&info);

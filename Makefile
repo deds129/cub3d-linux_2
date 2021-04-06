@@ -25,7 +25,8 @@ SRCS 	=		main.c \
 				ft_free_all.c \
 				ft_map_parse.c \
 				ft_utils.c \
-				ft_launch_game.c
+				ft_launch_game.c \
+				test.c
 
 OBJ = $(SRCS:.c=.o)
 LIBFT = libft

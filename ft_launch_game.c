@@ -28,11 +28,15 @@ int ft_key_press(int key, t_info *info)
 	return (1);
 }
 
-
+/**
+ * чтобы запустить игру нужно:
+ * 		1)заполненные + проверенные на валидность параметры
+ * 		2)проверенная на валидность карта
+ *
+ */
 
 void ft_launch_game(t_info *info)
 {
-	printf("\nlaunch\n");
 	if (!(info->swin.mlx = mlx_init()))
 		ft_error("Can't init mlx\n", info);
 	info->swin.win = mlx_new_window(info->swin.mlx, info->res_y, info->res_x, info->filename);
