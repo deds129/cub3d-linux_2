@@ -39,10 +39,7 @@ void ft_launch_game(t_info *info)
 {
 	if (!(info->swin.mlx = mlx_init()))
 		ft_error("Can't init mlx\n", info);
-	info->swin.win = mlx_new_window(info->swin.mlx, info->res_y, info->res_x, info->filename);
-
-	mlx_get_screen_size(&info->max_res_x, &info->max_res_y);
-	printf("max res: x: %d y: %d",info->max_res_x, info->max_res_y);
+	info->swin.win = mlx_new_window(info->swin.mlx, info->res_x, info->res_y, info->filename);
 
 	mlx_hook(info->swin.win, 02, 1L << 0,ft_key_press,info);
 	mlx_hook(info->swin.win,17,1L << 17, ft_close_win, info);
