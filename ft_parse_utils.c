@@ -23,10 +23,10 @@ void ft_print_params(t_info *info)
 	printf("floor_color: %d\n",info->has_param[6]);
 	printf("celling_color: %d\n",info->has_param[7]);
 	printf("\n===MAP===\n");
-//	int i;
-//	i = -1;
-//	while(info->map[++i])
-//		printf("%s\n",info->map[i]);
+	int i;
+	i = -1;
+	while(info->map[++i])
+		printf("%s\n",info->map[i]);
 }
 
 int ft_valid_str(char *data)
@@ -35,7 +35,7 @@ int ft_valid_str(char *data)
 		data[0] == 'W' || data[0] == 'E' || data[0] == 'F' ||
 		data[0] == 'C' || data[0] == '\n' || data[0] == ' ' ||
 		data[0] == '1' || data[0] == '\0' || data[0] == '2' || data[0] ==
-		'\t' || data[0] == '\0');
+		'\t' || data[0] == '\0')
 		return (1);
 	return (0);
 }

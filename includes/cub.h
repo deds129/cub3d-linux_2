@@ -4,12 +4,12 @@
 # include "get_next_line.h"
 
 //for MacOS
-//# include "../minilibx_mac/mlx.h"
+# include "../minilibx_mac/mlx.h"
 //# include "../minilibx_mac/mlx_int.h"
 
 //for linux
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+//# include "../minilibx-linux/mlx.h"
+//# include "../minilibx-linux/mlx_int.h"
 
 # include "libft.h"
 # include <fcntl.h>
@@ -20,43 +20,25 @@
 
 #define SCALE 16 // условный размер каждого квадратика в карте
 
-# define ERR_MALLOC -1
 
-# define ERR_ARGC_MIN -2
-# define ERR_ARGC_MAX -3
-# define ERR_ARG_SAVE -4
-
-# define ERR_FILENAME -11
-# define ERR_FILE_OPEN -12
-# define ERR_FILE_ISDIR -12
-
-# define ERR_MAP_READ -111
-# define ERR_MAP_VALIDITY -112
-# define ERR_MAP_RES -113
-# define ERR_MAP_BAD_ARG -114
-# define ERR_MAP_T -115
-# define ERR_MAP_BAD -116
-# define ERR_MAP_C -117
-# define ERR_MAP_OPEN -118
-# define ERR_MAP_D -119
 
 //LINUX
-# define W 119
-# define S 115
-# define A 97
-# define D 100
-# define LEFT 65361
-# define RIGHT 65363
-# define ESC 65307
+//# define W 119
+//# define S 115
+//# define A 97
+//# define D 100
+//# define LEFT 65361
+//# define RIGHT 65363
+//# define ESC 65307
 
 //MAC OS
-//# define W 13
-//# define S 1
-//# define A 0
-//# define D 2
-//# define LEFT 123
-//# define RIGHT 124
-//# define ESC 53
+# define W 13
+# define S 1
+# define A 0
+# define D 2
+# define LEFT 123
+# define RIGHT 124
+# define ESC 53
 
 typedef struct	s_win //структура для окна
 {
@@ -131,10 +113,10 @@ int	ft_spaces_num(char *str);
 unsigned long	ft_color_to_hex(int red, int green, int blue);
 int			ft_skip_spaces(char *str);
 void ft_check_params(t_info *info);
-int ft_map_bits(char *line, t_info *info);
+int ft_map_bits(char *line);
 void ft_map_params(char *line, t_info *info);
 int ft_check_pars(t_info *info);
-void ft_parse_map(char *filename,t_info *info);
+void ft_parse_map(t_info *info);
 int ft_map_char(char c);
 
 /*res*/

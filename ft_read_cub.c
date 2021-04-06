@@ -12,7 +12,7 @@ void ft_parse_params(char *str, char *tmp, t_info *info)
 			(str[0] == 'S')
 			)
 		ft_set_textures(str, info);
-	else if (ft_map_bits(tmp,info) == 1 && info->map_start == 0)
+	else if (ft_map_bits(tmp) == 1 && info->map_start == 0)
 	{
 		if (ft_check_pars(info) == 0)
 			ft_error("Map must be after parameters\n",info);
@@ -42,7 +42,7 @@ void ft_read_cub(int fd, t_info *info)
 	}
 	ft_check_params(info);
 	//todo: заполняем карту и проверяем валидность
-	//ft_parse_map(info->filename ,info);
+	ft_parse_map(info);
 	ft_launch_game(info);
 	close(fd);
 }

@@ -4,7 +4,7 @@ void ft_map_params(char *line, t_info *info)
 {
 	int i;
 	i = 0;
-	if (ft_map_bits(line,info) == 1 && info->map_start == 0)
+	if (ft_map_bits(line) == 1 && info->map_start == 0)
 	{
 		//printf("%s\n", line);
 		if ((int)ft_strlen(line) > info->iline_size)
@@ -16,7 +16,7 @@ void ft_map_params(char *line, t_info *info)
 }
 
 /*validate map*/
-int ft_map_bits(char *line, t_info *info)
+int ft_map_bits(char *line)
 {
 	int i;
 	if(!line)
@@ -40,37 +40,47 @@ int ft_map_bits(char *line, t_info *info)
 
 }
 
-void ft_parse_map(char *filename,t_info *info)
+//void ft_fill_map_str(char *line,t_info *info, int *idx)
+//{
+//	int i;
+//	i = *idx;
+//	if(!(info->map[i] = malloc(sizeof(char) * (info->iline_size))))
+//		ft_error("Malloc error\n", info);
+//}
+
+//fill map
+void ft_parse_map(t_info *info)
 {
 	int fd;
 	int rd;
 	char *line;
-	int str_num;
-	str_num = -1;
+	int i;
 
 
 	fd = open(info->filename, O_RDONLY);
 	if (info->iline_size == 0 || info->iline_num == 0)
 		ft_error("Map not passed\n",info);
 
-	if(!(info->map = malloc(sizeof(char) * (info->iline_num *
-											(info->iline_size + 1)))))
+	//выделяем память под строки
+	if(!(info->map = malloc(sizeof(char *) * (info->iline_num))))
 		ft_error("Malloc error\n", info);
 	rd = 1;
 	line = NULL;
+	i = 0;
 	while (rd > 0)
 	{
 		rd = get_next_line(fd, &line);
 		//todo: upgrade
-		if (ft_map_bits(line,info) == 1)
+		if (ft_map_bits(line) == 1)
 		{
-
+			printf("%s\n", line);
+			//ft_fill_map_str(line, info, &i);
 		}
 		free(line);
 	}
 
 
-	//gnl + allocate memory
 	//put spaces
 	//check map valid
+	//errors handle
 }
