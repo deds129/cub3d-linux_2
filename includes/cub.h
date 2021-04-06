@@ -4,12 +4,12 @@
 # include "get_next_line.h"
 
 //for MacOS
-# include "../minilibx_mac/mlx.h"
+//# include "../minilibx_mac/mlx.h"
 //# include "../minilibx_mac/mlx_int.h"
 
 //for linux
-//# include "../minilibx-linux/mlx.h"
-//# include "../minilibx-linux/mlx_int.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 
 # include "libft.h"
 # include <fcntl.h>
@@ -58,39 +58,6 @@
 //# define RIGHT 124
 //# define ESC 53
 
-typedef struct	s_info
-{
-	int res_x;
-	int res_y;
-	//флаг для повторений
-
-	//0 res
-	//1 no
-	//2 so
-	//3 we
-	//4 ea
-	//5 sp
-	//6 floor
-	//7 celling
-	int has_param[8];
-
-	char *no;
-	char *so;
-	char *we;
-	char *ea;
-	char *s;
-
-	int floor;
-
-	int cell;
-	char **map;
-	int iline_num;
-	int iline_size;
-	int save;
-	int map_start;
-	char *filename;
-}				t_info;
-
 typedef struct	s_win //структура для окна
 {
 	void		*mlx;
@@ -113,16 +80,38 @@ typedef struct	s_plr //структура для игрока и луча
 	float		x;
 	float		y;
 	float		dir;
-	float		start; //угол?
-	float		end; //угол
+	float		start;
+	float		end;
 }				  t_plr;
 
-typedef struct	s_all // структура для всего вместе
+typedef struct	s_info
 {
-	t_win		*wnd;
-	t_plr		*plr;
-	char		**map;
-}				  t_all;
+	int res_x; //0
+	int res_y; //0
+	int has_param[8];
+
+	char *no; //1
+	char *so;  //2
+	char *we; //3
+	char *ea; //4
+	char *s; //5
+
+	int floor; //6
+
+	int cell; //7
+	char **map;
+	int iline_num;
+	int iline_size;
+	int save;
+	int map_start;
+	char *filename;
+	t_win swin;
+	t_plr splr;
+}				t_info;
+
+
+
+
 
 /*errors handle*/
 //void ft_error(int err_code);
@@ -141,6 +130,12 @@ int	ft_commas_num(char *str);
 int	ft_spaces_num(char *str);
 unsigned long	ft_color_to_hex(int red, int green, int blue);
 int			ft_skip_spaces(char *str);
+void ft_check_params(t_info *info);
+int ft_map_bits(char *line, t_info *info);
+void ft_map_params(char *line, t_info *info);
+int ft_check_pars(t_info *info);
+void ft_parse_map(char *filename,t_info *info);
+int ft_map_char(char c);
 
 /*res*/
 void ft_set_res(char *str, t_info *info);
@@ -159,9 +154,13 @@ void ft_free_all(t_info *info);
 /*mlx tier*/
 void            pixel_put(t_win *wnd, int x, int y, int color);
 
+/*game start*/
+void ft_launch_game(t_info *info);
+
+
 /*debug*/
 void ft_print_params(t_info *info);
 
-int ft_map_bits(char *line, t_info *info);
+
 
 #endif

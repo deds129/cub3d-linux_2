@@ -1,17 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hanisha <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/09 12:27:45 by hanisha           #+#    #+#              #
-#    Updated: 2021/01/09 12:27:49 by hanisha          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-#FOR MACOS
-NAME = cub3D
+#FOR LINUX
+DEBUGFLAGS = -g -fsanitize=address
+CFLAGS 	= 	-Wall -Wextra -Werror
 SRCS 	=		main.c \
 				./gnl/get_next_line.c \
 				./gnl/get_next_line_utils.c \
@@ -22,42 +11,53 @@ SRCS 	=		main.c \
                 ft_parse_utils.c \
 				ft_read_cub.c \
 				ft_color.c \
-				ft_free_all.c
+				ft_free_all.c \
+				ft_map_parse.c \
+				ft_utils.c \
+				ft_launch_game.c
 
-OBJ = $(SRCS:.c=.o)
-LIBFT = libft
-CC = gcc
-CFLAGS = -Wall -Wextra -Imlx_lnx
-DEBUGFLAGS = -g -fsanitize=address
+OBJS 	= 	$(SRCS:.c=.o)
+CC 		= 	gcc
+NAME 	= 	cub3D
 RM 		= 	rm -rf
-HEADERS = ./includes/cub.h ./includes/get_next_line.h \
-			./includes/libft.h ./minilibx-mac/mlx.h
-OFLAGS = -L$(LIBFT) -lft -lm -framework OpenGL -framework AppKit -lmlx
 
-.PHONY: all clean fclean re
-
-all: comp_lib  $(NAME)
+P_LIBFT	= 	./libft/
 
 
+#Linux
+MLX_PATH = ./minilibx-linux
+MLX = libmlx.a
+LMFLAGS = -Imlx_linux -Lmlx_linux
+LIBS = -lmlx -lXext -lX11 -lm
 
-$(NAME): $(OBJ)
-	$(CC)  $(DEBUGFLAGS) $(CFLAGS) $(OBJ) $(OFLAGS) -o $(NAME)
+
+.c.o:
+	${CC} ${DEBUGFLAGS} ${GFLAG} ${LMFLAGS} -c $< -o ${<:.c=.o}
+
+all:  ${NAME}
+
+${NAME}: comp_lib ${MLX} ${OBJS}
+	${CC} ${DEBUGFLAGS} ${CFLAGS} ${LMFLAGS} ${OBJS} ${P_LIBFT}libft.a ${LIBS} -o ${NAME}
+
+$(MLX):
+				@$(MAKE) -C ${MLX_PATH}
+#				@mv ${MLX_PATH}/$(MLX) .
 
 comp_lib:
-	$(MAKE) bonus -C ./libft/
+	$(MAKE) bonus -C ${P_LIBFT}
 	$(MAKE) -C ./libft/
 
-%.o: %.c $(HEADERS)
-	@$(CC) $(DEBUGFLAGS) $(FLAGS) -c $< -o $@
-	@echo "$@ added"
 
 clean:
-	make clean -C libft
-	${RM} ${OBJ}
+	$(MAKE) clean -C ${P_LIBFT}
+	$(MAKE) clean -C ${MLX_PATH}
+	${RM} ${OBJS}
 
 fclean: clean
-	make fclean -C libft
+	$(MAKE) fclean -C ${P_LIBFT}
 	${RM} ${NAME}
-	@echo "@ added"
+
 
 re: fclean all
+
+.PHONY: all clean fclean re

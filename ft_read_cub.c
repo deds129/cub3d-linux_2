@@ -1,50 +1,6 @@
 #include "./includes/cub.h"
 
-
-
-void ft_check_params(t_info *info)
-{
-	int i;
-	i = -1;
-	while (++i < 8)
-	{
-		if(info->has_param[i] == 0)
-			ft_error("Missing arguments\n" , info);
-		if(info->has_param[i] > 1)
-			ft_error("Too many arguments\n" , info);
-	}
-}
-
-int ft_check_pars(t_info *info)
-{
-	int i;
-	i = -1;
-	while (++i < 8)
-	{
-		if(info->has_param[i] == 0 || info->has_param[i] > 1)
-			return (0);
-	}
-	return (1);
-}
-
-void ft_map_params(char *line, t_info *info)
-{
-	int i;
-	i = 0;
-	if (ft_map_bits(line,info) == 1 && ft_check_pars(info))
-	{
-		if ((int)ft_strlen(line) > info->iline_size)
-			info->iline_size = ft_strlen(line);
-		info->iline_num++;
-		//todo: fix /n/n bug
-//		if (info->map_start == 1)
-//		{
-//
-//		}
-	}
-}
-
-void ft_parse_params(char *str, t_info *info)
+void ft_parse_params(char *str, char *tmp, t_info *info)
 {
 	if(str[0] == 'R')
 		ft_set_res(++str, info);
@@ -56,66 +12,13 @@ void ft_parse_params(char *str, t_info *info)
 			(str[0] == 'S')
 			)
 		ft_set_textures(str, info);
-	else if (ft_map_bits(str,info) == 1)
+	else if (ft_map_bits(tmp,info) == 1 && info->map_start == 0)
 	{
 		if (ft_check_pars(info) == 0)
 			ft_error("Map must be after parameters\n",info);
-		else
-		{
-			info->map_start = 1;
-			ft_map_params(str, info);
-		}
+		//находим количество строк и самую длинную строку
+		ft_map_params(tmp, info);
 	}
-}
-
-int ft_map_char(char c)
-{
-	if (c != ' ' && c != '0' && c != '1' &&
-		c != '2' && c != 'N' && c != 'S'
-		&& c != 'E' && c != 'W' && c != '\n'
-		&& c != '\t')
-		return (0);
-	return (1);
-}
-
-
-/*validate map*/
-int ft_map_bits(char *line, t_info *info)
-{
-	int i;
-	if(!line)
-		return (0);
-	if (ft_map_char(line[0]))
-	{
-		i = -1;
-		if (ft_strncmp(line,"\n",ft_strlen(line)) == 0)
-			ft_error("Wrong map\n",info);
-		while (line[++i])
-		{
-			/*check valid map bits in line*/
-			if (ft_map_char(line[i]) == 0)
-				return (0);
-		}
-	}
-	else
-		return (0);
-	return (1);
-
-}
-
-void ft_parse_map(t_info *info)
-{
-//	int fd;
-	int rd;
-	char *line;
-
-	rd = 1;
-	line = NULL;
-	if (info->iline_size == 0 || info->iline_num == 0)
-		ft_error("Map not passed\n",info);
-	//gnl + allocate memory
-	//put spaces
-	//check map valid
 }
 
 void ft_read_cub(int fd, t_info *info)
@@ -130,15 +33,17 @@ void ft_read_cub(int fd, t_info *info)
 		rd = get_next_line(fd, &line);
 		tmp = line;
 		line += ft_skip_spaces(line);
-		if (ft_valid_str(line))
-			ft_parse_params(line, info);
+		if (ft_valid_str(tmp))
+			ft_parse_params(line,tmp, info);
 		else
 			ft_error("File isn't valid\n" , info);
 		/*count map size*/
 		free(tmp);
 	}
 	ft_check_params(info);
-	ft_parse_map(info);
+	//todo: заполняем карту и проверяем валидность
+	//ft_parse_map(info->filename ,info);
+	ft_launch_game(info);
 	close(fd);
 }
 
