@@ -23,10 +23,10 @@ void ft_print_params(t_info *info)
 	printf("floor_color: %d\n",info->has_param[6]);
 	printf("celling_color: %d\n",info->has_param[7]);
 	printf("\n===MAP===\n");
-//	int i;
-//	i = -1;
-//	while(info->map[++i])
-//		printf("%s\n",info->map[i]);
+	int i;
+	i = -1;
+	while(info->map[++i])
+		printf("%s\n",info->map[i]);
 }
 
 void ft_test_fill(t_info *info)

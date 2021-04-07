@@ -85,6 +85,9 @@ typedef struct	s_info
 	int floor; //6
 
 	int cell; //7
+
+	char *str_map;
+	char **pre_map;
 	char **map;
 	int iline_num;
 	int iline_size;
@@ -117,7 +120,7 @@ int	ft_spaces_num(char *str);
 unsigned long	ft_color_to_hex(int red, int green, int blue);
 int			ft_skip_spaces(char *str);
 void ft_check_params(t_info *info);
-int ft_map_bits(char *line);
+int ft_map_bits(char *line, t_info *info);
 void ft_map_params(char *line, t_info *info);
 int ft_check_pars(t_info *info);
 void ft_parse_map(t_info *info);

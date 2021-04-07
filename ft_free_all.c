@@ -19,5 +19,9 @@ void ft_free_all(t_info *info)
 {
 	if (info->map)
 		free(info->map);
+//	if (info->str_map)
+//		free(info->str_map);
+//	if (info->pre_map)
+//		free(info->pre_map);
 	ft_free_inftext(info);
 }

@@ -58,7 +58,7 @@ int main (int argc, char *argv[])
 		ft_read_cub(fd, &info);
 
 		//todo: delete this
-		//ft_test_fill(&info);
+		ft_test_fill(&info);
 		ft_print_params(&info);
 		ft_launch_game(&info);
 	}
